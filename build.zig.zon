@@ -1,4 +1,4 @@
-.{ .name = "zon_test", .version = "0.0.0", .paths = .{ "./src/main.zig", "./build.zig", "./build.zig.zon" }, .dependencies = .{
+.{ .name = "zon_test", .minimum_zig_version = "0.12.0-dev.2631+3069669bc", .version = "0.0.0", .paths = .{ "./src/main.zig", "./build.zig", "./build.zig.zon" }, .dependencies = .{
     .@"mach-glfw" = .{
         .url = "https://github.com/nslebruh/mach-glfw/archive/refs/tags/0.0.1.tar.gz",
         .hash = "12204522059d382f5d05099b60ec4d85c1b1917d22b8157ab4947ecac0dc5bb3d8fe",
