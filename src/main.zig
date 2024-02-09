@@ -13,6 +13,10 @@ fn errorCallback(error_code: glfw.ErrorCode, description: [:0]const u8) void {
     std.log.err("glfw: {}: {s}\n", .{ error_code, description });
 }
 
+fn framebufferSizeCallback(_: glfw.Window, width: u32, height: u32) void {
+    gl.viewport(0, 0, width, height);
+}
+
 fn logGlfwError(msg: [:0] const u8, err: glfw.Error) void {
     std.log.err("GLFW {s} - {}: {s}\n", .{msg, err.error_code, err.description});
 }
@@ -66,13 +70,22 @@ pub fn main() anyerror!void {
     const proc: glfw.GLProc = undefined;
     try gl.loadExtensions(proc, glGetProcAddress);
 
+    window.setFramebufferSizeCallback(framebufferSizeCallback);
+
     while (!window.shouldClose()) {
-        glfw.pollEvents();
+        processInput(window);
 
         gl.clearColor(1, 0, 1, 1);
         gl.clear(.{.color = true});
 
         window.swapBuffers();
+        glfw.pollEvents();
+    }
+}
+
+fn processInput(window: glfw.Window) void {
+    if (window.getKey(glfw.Key.escape) == glfw.Action.press) {
+        window.setShouldClose(true);
     }
 }
 
